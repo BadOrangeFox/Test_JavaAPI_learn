@@ -14,9 +14,11 @@ public class HomeWorkTest3 {
                 .andReturn();
 
         String locationHeaders = response.getHeader("Location");
-        System.out.println(locationHeaders);
+        System.out.println("Доступен переход на "+locationHeaders);
         int statusCode = response.getStatusCode();
-        if (statusCode != 200) {
+        System.out.println("Status code "+statusCode);
+
+        while (statusCode != 200) {
             Response response1 = RestAssured
                     .given()
                     .redirects()
@@ -24,11 +26,17 @@ public class HomeWorkTest3 {
                     .when()
                     .get(locationHeaders)
                     .andReturn();
-            String locationHeaders2 = response1.getHeader("Location");
-            System.out.println(locationHeaders2);
-        } else {
-            System.out.println(locationHeaders);
+            locationHeaders = response1.getHeader("Location");
+            statusCode = response1.getStatusCode();
+            if (locationHeaders == null) {
+                System.out.println("Итоговый переход "+locationHeaders);
+                System.out.println("Status code "+statusCode);
+                break;
+            } else {
+                System.out.println("Доступен переход на "+locationHeaders);}
+                System.out.println("Status code "+statusCode);
         }
+
     }
 
 }
