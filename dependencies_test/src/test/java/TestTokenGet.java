@@ -22,10 +22,10 @@ public class TestTokenGet {
                 .when()
                 .get("https://playground.learnqa.ru/ajax/api/longtime_job")
                 .jsonPath();
-
+        System.out.println("Задача создана");
         String responsesStatus = getTuskStatus.get("status");
         String shittyString = "Job is NOT ready";
-        System.out.println(responsesStatus);
+        System.out.println("Статус выполнения задачи: "+ responsesStatus);
 
             if (Objects.equals(responsesStatus, shittyString)) {
             Thread.sleep(responseTime * 1000L);
@@ -36,11 +36,13 @@ public class TestTokenGet {
                     .when()
                     .get("https://playground.learnqa.ru/ajax/api/longtime_job")
                     .jsonPath();
+                String status3 = putTuskTime.get("status");
+                System.out.println("Статус выполнения задачи: "+ status3);
+                String resultPutTuskTime = putTuskTime.get("result");
+                System.out.println("Результат выполненной задачи: "+ resultPutTuskTime);
 
-                String result3 = putTuskTime.get("status");
-                System.out.println(result3);
         }  else {
-                String result = getTuskStatus.get("result");
+                String result = getTuskStatus.get("status");
                 System.out.println(result);
         }
     }
