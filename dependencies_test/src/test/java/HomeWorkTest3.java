@@ -26,13 +26,13 @@ public class HomeWorkTest3 {
                     .when()
                     .get(locationHeaders)
                     .andReturn();
-            locationHeaders = response1.getHeader("Location");
-            statusCode = response1.getStatusCode();
+
             if (locationHeaders == null) {
-                System.out.println("Итоговый переход "+locationHeaders);
                 System.out.println("Status code "+statusCode);
-                break;
+                
             } else {
+                locationHeaders = response1.getHeader("Location");
+                statusCode = response1.getStatusCode();
                 System.out.println("Доступен переход на "+locationHeaders);}
                 System.out.println("Status code "+statusCode);
         }
