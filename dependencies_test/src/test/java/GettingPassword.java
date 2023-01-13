@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class GettingPassword {
     @Test
-    public void gettingPassword() {
+    public void gettingPasswordGet() {
         String[] passwordAry = new String[74]; //объявляем массив криво и указываем все уникальные пароли как часть массива
         passwordAry[0] = "password";
         passwordAry[1] = "123456";
@@ -102,6 +102,7 @@ public class GettingPassword {
 
             String responseCookies = getCookiesForAuth.getCookie("auth_cookie");
 
+
         Response putCookiesForAuth = RestAssured //отправляем полученную куки для проверки
                 .given()
                 .cookies("auth_cookie", responseCookies)
@@ -109,25 +110,20 @@ public class GettingPassword {
                 .andReturn();
 
         String result = putCookiesForAuth.asString();
-        System.out.println(result);
 
-        while (Objects.equals(result, uncorrectedResult)) {
+        while (Objects.equals(result, uncorrectedResult)) { //Толкаем, пока результат отрицательный
             numberFromArray++ ;
             password = passwordAry[numberFromArray];
 
-            Map<String,String> data1 = new HashMap<>();
-            data.put("login","super_admin");
-            data.put("password",password);
-
             Response getCookiesForAuth1 = RestAssured //получаем куки (правильную или неправильную)
                     .given()
-                    .queryParams(data1)
+                    .queryParam("login","super_admin")
+                    .queryParam("password",password)
                     .when()
                     .post("https://playground.learnqa.ru/ajax/api/get_secret_password_homework")
                     .andReturn();
 
             String responseCookies1 = getCookiesForAuth1.getCookie("auth_cookie");
-            System.out.println(responseCookies1);
 
             Response putCookiesForAuth1 = RestAssured //отправляем полученную куки для проверки
                     .given()
@@ -137,9 +133,9 @@ public class GettingPassword {
 
             result = putCookiesForAuth1.asString();
 
-            if (!Objects.equals(result, uncorrectedResult)){
-
-                System.out.println(data1);
+            if (!uncorrectedResult.equals(result)) { //Если куки прошла, то вернет корректный пароль в консоль
+                System.out.println("Корректный пароль: " + password);
+                break;
             }
 
         }
