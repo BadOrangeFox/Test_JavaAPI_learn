@@ -15,6 +15,7 @@ public class TestTokenGet {
 
         String responsesToken = responseTokenAndCreateTusk.get("token"); //кладем токен в переменную
         int responseTime = responseTokenAndCreateTusk.get("seconds"); //кладем время в переменную
+        System.out.println(responseTime);
 
         JsonPath getTuskStatus = RestAssured  //проверяем статус по задаче согласно токену
                 .given()
@@ -24,13 +25,14 @@ public class TestTokenGet {
                 .jsonPath();
         System.out.println("Задача создана");
         String responsesStatus = getTuskStatus.get("status");
+
         String shittyString = "Job is NOT ready";
         System.out.println("Статус выполнения задачи: "+ responsesStatus);
 
             if (Objects.equals(responsesStatus, shittyString)) {
             Thread.sleep(responseTime * 1000L);
 
-            JsonPath putTuskTime = RestAssured //
+            JsonPath putTuskTime = RestAssured //Повторный вызов спустя время
                     .given()
                     .queryParams("token", responsesToken)
                     .when()
@@ -38,6 +40,7 @@ public class TestTokenGet {
                     .jsonPath();
                 String status3 = putTuskTime.get("status");
                 System.out.println("Статус выполнения задачи: "+ status3);
+
                 String resultPutTuskTime = putTuskTime.get("result");
                 System.out.println("Результат выполненной задачи: "+ resultPutTuskTime);
 
