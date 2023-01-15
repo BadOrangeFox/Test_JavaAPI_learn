@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 
 public class HomeWorkTest1 {
     @Test
-    public static void main (String[] args){
+    public void main(){
         JsonPath response = RestAssured
                 .get("https://playground.learnqa.ru/api/get_json_homework")
                 .jsonPath();
-        Object testObject = response.get("messages.find {msg -> msg.message == 'And this is a second message'}");
+        Object testObject = response.get("messages");
 
         System.out.println(testObject);
     }
