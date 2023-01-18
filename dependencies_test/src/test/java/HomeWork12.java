@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Objects;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HomeWork12 {
 
@@ -22,11 +22,10 @@ public class HomeWork12 {
         if (Objects.equals(resultHeader, expectedHeader)){
             System.out.println("Равенство корректно, чертов Ассерт");
         }   else {
-
             System.out.println("Беда, код не работает, хз че делать");
         }
 
-        assertSame (expectedHeader, resultHeader, "Unexpected Header");
+        assertTrue ((resultHeader.equals(expectedHeader)), "Unexpected Header");
 
     }
 }
