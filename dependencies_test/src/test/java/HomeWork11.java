@@ -2,7 +2,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HomeWork11 {
 
@@ -15,7 +15,7 @@ public class HomeWork11 {
 
         String resultCookie = gettingCookie.getCookie("HomeWork");
         String expectedCookie = "hw_value";
-        assertSame(expectedCookie, resultCookie, "Unexpected Cookie");
+        assertTrue((resultCookie.equals(expectedCookie)), "Unexpected Cookie");
 
     }
 
